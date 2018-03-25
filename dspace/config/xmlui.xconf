@@ -1,49 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE xmlui SYSTEM "xmlui.dtd">
 
-<!--
-    - xmlui.xconf
-    -
-    - Copyright (c) 2002-2009, The DSpace Foundation.  All rights reserved.
-    - 
-    - Redistribution and use in source and binary forms, with or without
-    - modification, are permitted provided that the following conditions are
-    - met:
-    - 
-    - - Redistributions of source code must retain the above copyright
-    - notice, this list of conditions and the following disclaimer.
-    - 
-    - - Redistributions in binary form must reproduce the above copyright
-    - notice, this list of conditions and the following disclaimer in the
-    - documentation and/or other materials provided with the distribution.
-    - 
-    - Neither the name of the DSpace Foundation nor the names of its
-    - contributors may be used to endorse or promote products derived from
-    - this software without specific prior written permission.
-    - 
-    - THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-    - ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-    - LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-    - A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-    - HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-    - INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-    - BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
-    - OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-    - ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
-    - TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
-    - USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
-    - DAMAGE.
--->
-
-
-<!--
-    - The XMLUI (Manakin Release) configuration file
-    -
-    - Authors: Scott Phillips
-    - Version: $Revision$
-    - Date:    $Date$
--->
-
 <xmlui>
     <!--
         This section configures the Aspect "chain". An Aspect provides a set 
@@ -87,27 +44,17 @@
         <!-- By default, DSpace uses a Statistics engine based on SOLR -->
         <aspect name="Statistics" path="resource://aspects/Statistics/" />
 
-        <!--
-             If you prefer to use "Elastic Search" Statistics, you can uncomment the below
-             aspect and COMMENT OUT the default "Statistics" aspect above.
-             You must also enable the ElasticSearchLoggerEventListener.
-        -->
-        <!-- <aspect name="Statistics - Elastic Search" path="resource://aspects/StatisticsElasticSearch/" /> -->
-
-        <!-- Additionally you may choose to expose your Google Analytics statistics in DSpace -->
-        <!-- <aspect name="StatisticsGoogleAnalytics" path="resource://aspects/StatisticsGoogleAnalytics/" /> -->
-
         <!-- =========================
              Approval Workflow Systems
              ========================= -->
         <!-- By default, DSpace uses a legacy 3-step approval workflow for new submissions -->
-        <aspect name="Original Workflow" path="resource://aspects/Workflow/" />
+        <!-- <aspect name="Original Workflow" path="resource://aspects/Workflow/" /> -->
 
         <!-- If you prefer, a Configurable XML-based Workflow is available. To enable it, you can
              uncomment the below aspect and comment out the "Original Workflow" aspect above.
              PLEASE NOTE: in order to use the configurable workflow you must also run the
              database migration scripts as detailed in the DSpace Documentation -->
-        <!-- <aspect name="XMLWorkflow" path="resource://aspects/XMLWorkflow/" /> -->
+        <aspect name="XMLWorkflow" path="resource://aspects/XMLWorkflow/" />
 
         <!-- ==============
              SWORDv1 Client
@@ -157,7 +104,8 @@
         <!-- <theme name="Test Theme 2" regex="community-list" path="theme2/"/> -->
 
         <!-- Mirage theme, @mire contributed theme, default since DSpace 3.0 -->
-        <theme name="Atmire Mirage Theme" regex=".*" path="Mirage/" />
+        <!-- <theme name="Atmire Mirage Theme" regex=".*" path="Mirage/" /> -->
+        <theme name="Mirage 2" regex=".*" path="Mirage2/" />
 
         <!-- Reference theme, the default Manakin XMLUI layout up to DSpace 1.8 -->
         <!-- <theme name="Default Reference Theme" regex=".*" path="Reference/" /> -->
