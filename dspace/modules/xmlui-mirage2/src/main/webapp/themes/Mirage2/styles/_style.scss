@@ -13,13 +13,13 @@
 
 //example mixin to set the text-selection style
 @mixin selection {
-    ::-moz-selection { @content; }
-    ::selection { @content; }
+  ::-moz-selection { @content; }
+  ::selection { @content; }
 }
 
 @include selection {
-    color: white;
-    background: hotpink;
+  color: white;
+  background: hotpink;
 }
 
 .publication-records-modal, .publication-records-modal ul {
@@ -41,21 +41,52 @@
 
 #aspect_submission_StepTransformer_div_StartSubmissionLookupStep {
 
-  #aspect_submission_StepTransformer_field_search {
-    width: 81%;
-    display: inline;
-  }
+}
+#aspect_submission_StepTransformer_field_search {
+  width: 81%;
+  display: inline;
+}
+#aspect_submission_StepTransformer_field_lookup {
+  width:19%
+}
+.modal .modal-body {
+  max-height: 500px;
+  overflow-y: auto;
+}
 
-  #aspect_submission_StepTransformer_field_lookup {
-    width:19%
-  }
+#aspect_submission_StepTransformer_item_publication-title{
+  margin-bottom:5px;
+}
+.container-fluid {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.footer-dark {
+  padding:50px 0;
+  color: #f0f9ff;
+  background-color:#282d32;
+}
 
-  .modal .modal-body {
-    max-height: 500px;
-    overflow-y: auto;
-  }
+.carousel,.item,.active{height:100%;}
+.carousel-inner{height:100%;}
+.carousel{margin-bottom:20px;}
 
-  #aspect_submission_StepTransformer_item_publication-title{
-    margin-bottom:5px;
-  }
+.carousel-caption{top:40%;}
+
+.newsbox {
+  border-bottom: 0px !important;
+  padding-bottom: 0 !important;
+  margin: 0 0 0 !important;
+}
+a.webcomm-carousel-actionLink {
+  display: inline-block;
+  color: #fff;
+  padding: 5px 10px;
+  background-color: #1a597e;  
+}
+
+a.webcomm-carousel-actionLink:hover {
+  text-decoration: none;
+  color: #fff;
+  background-color: #154765;
 }
