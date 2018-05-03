@@ -438,7 +438,7 @@
                         </ul>
                         <ul class="nav navbar-nav pull-left">
                             <!-- New UI: Change Nav Bar -->
-<xsl:if test="$is_first_page">
+                            <xsl:if test="$is_first_page">
                                 <li>
                                     <form id="ds-search-form" class="navbar-form" method="post">
                                         <xsl:attribute name="action">
@@ -455,15 +455,15 @@
                                         </div>
                                     </form>
                                 </li>
-</xsl:if>
-<xsl:if test="/dri:document/dri:meta/dri:userMeta/@authenticated = 'no'">
+                            </xsl:if>
+                            <xsl:if test="/dri:document/dri:meta/dri:userMeta/@authenticated = 'no' or $is_first_page">
                                 <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Browse <span class="caret"></span></a>
                                     <div class="dropdown-menu">
                                         <xsl:apply-templates select="dri:options//dri:list[@n='global' or @n='account' or @n='context' or @n='administrative' or @n='discovery' or @n='statistics']/dri:item[dri:xref]"/>
                                     </div>
                                 </li>
-</xsl:if>
+                            </xsl:if>
                             <xsl:choose>
                                 <xsl:when test="/dri:document/dri:meta/dri:userMeta/@authenticated = 'yes'">
                                     <li class="dropdown">
