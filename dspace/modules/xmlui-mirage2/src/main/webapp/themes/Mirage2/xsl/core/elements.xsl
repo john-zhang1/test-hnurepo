@@ -671,7 +671,15 @@
                         <xsl:text> page-header</xsl:text>
                     </xsl:if>
                     <xsl:if test="$is_first_head_on_page">
-                        <xsl:text> first-page-header newsbox</xsl:text>
+                        <!-- New UI -->
+                        <xsl:choose>
+                            <xsl:when test="$is_first_page">
+                                <xsl:text> first-page-header newsbox</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text> first-page-header</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:if>
                 </xsl:with-param>
             </xsl:call-template>
@@ -702,7 +710,9 @@
                 &#160;
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates />
+                <xsl:call-template name="renderHead">
+                    <xsl:with-param name="class">ds-div-head</xsl:with-param>
+                </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

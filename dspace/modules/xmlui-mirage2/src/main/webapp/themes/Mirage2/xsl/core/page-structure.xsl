@@ -458,7 +458,7 @@
                             </xsl:if>
                             <xsl:if test="/dri:document/dri:meta/dri:userMeta/@authenticated = 'no' or $is_first_page">
                                 <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Browse <span class="caret"></span></a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i18n:text>xmlui.ArtifactBrowser.Navigation.head_browse</i18n:text> <span class="caret"></span></a>
                                     <div class="dropdown-menu">
                                         <xsl:apply-templates select="dri:options//dri:list[@n='global' or @n='account' or @n='context' or @n='administrative' or @n='discovery' or @n='statistics']/dri:item[dri:xref]"/>
                                     </div>

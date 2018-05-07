@@ -30,6 +30,7 @@
         xmlns:i18n="http://apache.org/cocoon/i18n/2.1"
         xmlns:mets="http://www.loc.gov/METS/"
         xmlns:dim="http://www.dspace.org/xmlns/dspace/dim"
+        xmlns:str="http://exslt.org/strings"
         exclude-result-prefixes="xsl dri dim mets i18n">
 
     <xsl:output indent="yes"/>
@@ -203,10 +204,32 @@
 
     <xsl:template match="mets:METS" mode="custom-community-browser">
         <xsl:variable name="dim" select="mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim"/>
+        <xsl:variable name="CountTitle">
+            <xsl:value-of select="string-length(normalize-space($dim/dim:field[@element='title'])) - string-length(translate(normalize-space(normalize-space($dim/dim:field[@element='title'])),' ','')) +1" />
+        </xsl:variable>
+        <xsl:variable name="CountTitleCharacter">
+            <xsl:value-of select="string-length(normalize-space($dim/dim:field[@element='title']))" />
+        </xsl:variable>
+        <xsl:variable name="description" select="$dim/dim:field[@element='description'][@qualifier='abstract']"/>
+        <xsl:variable name="CountDescription">
+            <xsl:value-of select="string-length(normalize-space($description/text())) - string-length(translate(normalize-space(normalize-space($description/text())),' ','')) +1" />
+        </xsl:variable>
+
         <div rend="col-sm-6 col-md-5 col-lg-4 item">
             <div rend="box">
                 <h4>
-                    <xsl:value-of select="$dim/dim:field[@element='title']"/>
+                    <xsl:choose>
+                        <xsl:when test="$CountTitle &gt; 50">
+                            <xsl:call-template name="truncate-at-word">
+                                <xsl:with-param name="length" select="50" />
+                                <xsl:with-param name="string" select="$dim/dim:field[@element='title']" />
+                            </xsl:call-template>
+                            <xsl:text> ...</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$dim/dim:field[@element='title']"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </h4>
 
                 <xsl:if test="string-length($dim/dim:field[@element='format'][@qualifier='extent'][1]) &gt; 0">
@@ -218,15 +241,34 @@
                     </span>
                 </xsl:if>
 
-                <xsl:variable name="description" select="$dim/dim:field[@element='description'][@qualifier='abstract']"/>
                 <xsl:if test="string-length($description/text()) > 0">
                     <p rend="hidden-xs">
-                        <xsl:value-of select="$description"/>
+                        <xsl:choose>
+                            <xsl:when test="$CountTitle &gt; 50">
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:choose>
+                                    <!-- For chinese characters -->
+                                    <xsl:when test="$CountDescription &lt; 10">
+                                        <xsl:value-of select="substring($description/text(), 1, 48-$CountTitleCharacter)" />
+                                        <xsl:text> ...</xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:call-template name="truncate-at-word">
+                                            <xsl:with-param name="length" select="75-$CountTitle" />
+                                            <xsl:with-param name="string" select="$description/text()" />
+                                        </xsl:call-template>
+                                        <xsl:text> ...</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </p>
                 </xsl:if>
                 <div rend="browse-more">
                     <xref target="{@OBJID}" n="community-browser-link">
-                        <xsl:text>Browse</xsl:text>
+                        <i18n:text>xmlui.ArtifactBrowser.Navigation.head_browse</i18n:text>
+                        <xsl:text> »</xsl:text>
                     </xref>
                 </div>
             </div>
@@ -234,6 +276,31 @@
 
     </xsl:template>
     
+   <xsl:template name="truncate-at-word">
+		<xsl:param name="length" select="140"/>
+		<xsl:param name="string"/>
+		<xsl:param name="tokens" select="'&#x9;&#xA;&#xD;&#x20;'" />
+
+		<xsl:variable name="max" select="number($length)"/>
+		<xsl:variable name="stringLength" select="string-length($string)" />
+		<xsl:variable name="roughCut" select="substring($string, 1, $max)"/>
+		<xsl:variable name="tokenized" select="str:tokenize($roughCut, $tokens)"/>
+
+		<xsl:choose>
+			<xsl:when test="$stringLength > $max">
+				<xsl:for-each select="$tokenized[position() &lt; last()]">
+					<xsl:value-of select="."/>
+					<xsl:if test="position() != last()">
+						<xsl:text> </xsl:text>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$string"/>
+			</xsl:otherwise>
+		</xsl:choose>
+   </xsl:template>
+
     <xsl:template name="get-handle-class-from-url">
         <xsl:param name="url"/>
         <xsl:variable name="handle_pre">
